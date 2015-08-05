@@ -35,7 +35,7 @@ test('magic attributes', ({equal, end, ok}) => {
   ok(node.attributes.style === 'border-width: 1px')
 })
 
-test.only('jsx compatiblity', ({equal, end}) => {
+test('jsx compatiblity', ({equal, end}) => {
   var child1 = element('div')
   var child2 = element('div')
   var node = element('div', null, child1, child2)
