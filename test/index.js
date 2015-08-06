@@ -1,6 +1,4 @@
-/**
- * @jsx element
- */
+/** @jsx element */
 
 var test = require('tape')
 var element = require('../')
@@ -36,9 +34,12 @@ test('magic attributes', ({equal, end, ok}) => {
 })
 
 test('jsx compatiblity', ({equal, end}) => {
-  var child1 = element('div')
-  var child2 = element('div')
-  var node = element('div', null, child1, child2)
+  var node = (
+    <div>
+      <span/>
+      <span/>
+    </div>
+  )
   equal(node.children.length,2, 'children are spread')
   end()
 })
