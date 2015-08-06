@@ -1,6 +1,6 @@
 {
   "name": "magic-virtual-element",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": "dekujs/magic-virtual-element",
   "description": "Build virtual tree elements with magic attributes",
   "main": "index.js",
@@ -8,7 +8,6 @@
     "babelify": "^6.1.1",
     "bfc": "^0.3.1",
     "browserify": "^11.0.1",
-    "duoify": "^1.0.0",
     "hihat": "^2.4.0",
     "snazzy": "^1.0.1",
     "standard": "^4.5.4",
@@ -23,7 +22,7 @@
     "virtual-element": "^1.1.0"
   },
   "scripts": {
-    "build": "mkdir -p build && browserify -s magic-virtual-element -e index.js -t duoify > build/magic-virtual-element.js",
+    "build": "mkdir -p build && browserify -s magic-virtual-element -e index.js | bfc > build/magic-virtual-element.js",
     "test": "standard index.js && hihat test/index.js -- --debug -t babelify -p tap-dev-tool"
   }
 }
