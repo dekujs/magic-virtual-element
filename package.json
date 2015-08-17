@@ -1,6 +1,6 @@
 {
   "name": "magic-virtual-element",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "repository": "dekujs/magic-virtual-element",
   "description": "Build virtual tree elements with magic attributes",
   "main": "index.js",
@@ -19,7 +19,7 @@
     "component-type": "^1.1.0",
     "sliced": "^1.0.1",
     "to-style": "^1.3.3",
-    "virtual-element": "^1.1.0"
+    "virtual-element": "^1.1.2"
   },
   "scripts": {
     "build": "mkdir -p build && browserify -s magic-virtual-element -e index.js | bfc > build/magic-virtual-element.js",
