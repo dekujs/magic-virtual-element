@@ -3,14 +3,14 @@
 var test = require('tape')
 var element = require('../')
 
-test('magic attributes', ({equal, end, ok}) => {
+test('magic attributes', ({equal, end}) => {
   var node
 
   node = element('div', {
     class: ['foo', false, 'bar', null, 'baz']
   })
 
-  ok(node.attributes.class === 'foo bar baz')
+  equal(node.attributes.class, 'foo bar baz')
 
   node = element('div', {
     class: {
@@ -20,7 +20,7 @@ test('magic attributes', ({equal, end, ok}) => {
     }
   })
 
-  ok(node.attributes.class === 'foo bar')
+  equal(node.attributes.class, 'foo bar')
 
   node = element('div', {
     style: {
@@ -30,16 +30,31 @@ test('magic attributes', ({equal, end, ok}) => {
     }
   })
 
-  ok(node.attributes.style === 'border-width: 1px')
+  equal(node.attributes.style, 'border-width: 1px')
+
+  end()
 })
 
 test('jsx compatiblity', ({equal, end}) => {
-  var node = (
+  var node
+
+  node = (
     <div>
       <span/>
       <span/>
     </div>
   )
   equal(node.children.length,2, 'children are spread')
+
+  node = (
+    <div />
+  )
+  equal(node.children.length,0, 'should not have children')
+
+  node = (
+    <div></div>
+  )
+  equal(node.children.length,0, 'should not have children')
+
   end()
 })
