@@ -1,30 +1,26 @@
-var toStyle = require('to-style').string
-var classnames = require('classnames')
-var element = require('virtual-element')
-var type = require('component-type')
-var slice = require('sliced')
+import { element } from 'deku'
+import { string } from 'to-style'
+import classNames from 'classnames'
+import componentType from 'component-type'
 
-module.exports = function (t, attributes, children) {
+export default function magic (type, attributes, children) {
+  let vnode = element(type, attributes, children)
 
-  // Account for JSX putting the children as multiple arguments.
-  // This is essentially just the ES6 rest param
-  if (arguments.length > 2 && Array.isArray(arguments[2]) === false) {
-    children = slice(arguments, 2)
+  if (componentType(vnode.attributes.class) === 'array') {
+    vnode.attributes.class = classNames.apply(null, vnode.attributes.class)
   }
 
-  var node = element(t, attributes, children)
-
-  if (type(node.attributes.class) === 'array') {
-    node.attributes.class = classnames.apply(null, node.attributes.class)
+  if (componentType(vnode.attributes.class) === 'object') {
+    vnode.attributes.class = classNames(vnode.attributes.class)
   }
 
-  if (type(node.attributes.class) === 'object') {
-    node.attributes.class = classnames(node.attributes.class)
+  if (componentType(vnode.attributes.style) === 'object') {
+    vnode.attributes.style = string(vnode.attributes.style)
   }
 
-  if (type(node.attributes.style) === 'object') {
-    node.attributes.style = toStyle(node.attributes.style)
+  if (!vnode.attributes.hidden) {
+    delete vnode.attributes.hidden
   }
 
-  return node
+  return vnode
 }
