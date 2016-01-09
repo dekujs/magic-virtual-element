@@ -1,18 +1,15 @@
-/** @jsx element */
+/** @jsx h */
+import test from 'tape'
+import element from '../'
 
-var test = require('tape')
-var element = require('../')
-
-test('magic attributes', ({equal, end}) => {
-  var node
-
-  node = element('div', {
-    class: ['foo', false, 'bar', null, 'baz']
+test('magic class attribute', ({equal, end}) => {
+  let vnode = element('div', {
+    class: [ 'foo', false, 'bar', null, 'baz' ]
   })
 
-  equal(node.attributes.class, 'foo bar baz')
+  equal(vnode.attributes.class, 'foo bar baz')
 
-  node = element('div', {
+  vnode = element('div', {
     class: {
       foo: true,
       bar: true,
@@ -20,9 +17,13 @@ test('magic attributes', ({equal, end}) => {
     }
   })
 
-  equal(node.attributes.class, 'foo bar')
+  equal(vnode.attributes.class, 'foo bar')
 
-  node = element('div', {
+  end()
+})
+
+test('magic style attribute', ({equal, end}) => {
+  let vnode = element('div', {
     style: {
       border: {
         width: 1
@@ -30,31 +31,35 @@ test('magic attributes', ({equal, end}) => {
     }
   })
 
-  equal(node.attributes.style, 'border-width: 1px')
+  equal(vnode.attributes.style, 'border-width: 1px')
 
   end()
 })
 
-test('jsx compatiblity', ({equal, end}) => {
-  var node
+test('magic hidden attribute', ({equal, comment, end}) => {
+  let vnode = element('div', {
+    hidden: true
+  })
 
-  node = (
-    <div>
-      <span/>
-      <span/>
-    </div>
-  )
-  equal(node.children.length,2, 'children are spread')
+  equal(vnode.attributes.hidden, true)
 
-  node = (
-    <div />
-  )
-  equal(node.children.length,0, 'should not have children')
+  vnode = element('div', {
+    hidden: false
+  })
 
-  node = (
-    <div></div>
-  )
-  equal(node.children.length,0, 'should not have children')
+  equal(vnode.attributes.hasOwnProperty('hidden'), false)
+
+  vnode = element('div', {
+    hidden: null
+  })
+
+  equal(vnode.attributes.hasOwnProperty('hidden'), false)
+
+  vnode = element('div', {
+    hidden: undefined
+  })
+
+  equal(vnode.attributes.hasOwnProperty('hidden'), false)
 
   end()
 })
