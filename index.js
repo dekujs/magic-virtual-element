@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import componentType from 'component-type'
 
 export default function magic (type, attributes, ...children) {
-  let vnode = element(type, attributes, ...children)
+  const vnode = element(type, attributes, ...children)
 
   if (componentType(vnode.attributes.class) === 'array') {
     vnode.attributes.class = classNames.apply(null, vnode.attributes.class)

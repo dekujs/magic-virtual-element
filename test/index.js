@@ -23,7 +23,7 @@ test('magic class attribute', ({equal, end}) => {
 })
 
 test('magic style attribute', ({equal, end}) => {
-  let vnode = element('div', {
+  const vnode = element('div', {
     style: {
       border: {
         width: 1
